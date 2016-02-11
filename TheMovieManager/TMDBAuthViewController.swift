@@ -51,4 +51,14 @@ class TMDBAuthViewController: UIViewController {
 
 extension TMDBAuthViewController: UIWebViewDelegate {
     
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        print("webView URL: ", webView.request?.URL?.absoluteString)
+        if ( webView.request!.URL!.absoluteString == "\(TMDBClient.Constants.AuthorizationURL)\(requestToken!)/allow") {
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                self.completionHandler!(success: true, errorString: nil)
+            })
+        }
+    }
+    
 }
